@@ -19,7 +19,8 @@ spec:
     helm:
       releaseName: prometheus
       values: |
-        imageRegistry: "vm-cb:5000"
+        global:
+          imageRegistry: "{{ .Values.repository }}"
         prometheus:
           prometheusSpec:
             serviceMonitorSelectorNilUsesHelmValues: false
