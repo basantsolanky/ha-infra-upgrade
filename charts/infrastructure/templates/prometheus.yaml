@@ -8,10 +8,11 @@ spec:
   destination:
     namespace: monitoring
     server: https://kubernetes.default.svc
-  project: default
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
+      - ServerSideApply=true
+  project: default
   source:
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 45.8.1
@@ -20,9 +21,46 @@ spec:
       releaseName: prometheus
       values: |
         global:
-          imageRegistry: "{{ .Values.repository }}"
+          imageRegistry: {{ .Values.repository }}
+        
+        alertmanager:
+          alertmanagerSpec:
+            image:
+              repository: 'alertmanager'
+        
+        kube-state-metrics:
+          image:
+            repository: kube-state-metrics 
+        
+        prometheus-node-exporter:
+          image:
+            repository: node-exporter
+        
+        grafana:
+          # This creates some test job that needs a bats/bats image. I don't think its needed
+          testFramework:
+            enabled: false
+          image:
+            repository: {{ .Values.repository}}/grafana
+          sidecar:
+            image:
+              repository: {{ .Values.repository}}/k8s-sidecar
+        
+        prometheusOperator:
+          image:
+            repository: prometheus-operator
+          admissionWebhooks:
+            patch:
+              image:
+                repository: kube-webhook-certgen
+          prometheusConfigReloader:
+            image:
+              repository: prometheus-config-reloader
+        
         prometheus:
           prometheusSpec:
+            image:
+              repository: 'prometheus'
             serviceMonitorSelectorNilUsesHelmValues: false
             podMonitorSelectorNilUsesHelmValues: false
             additionalScrapeConfigs:
