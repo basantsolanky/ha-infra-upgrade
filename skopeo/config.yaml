@@ -1,0 +1,17 @@
+quay.io:
+  images-by-tag-regex:
+    prometheus/node-exporter: v1.9.1
+    kiwigrid/k8s-sidecar: 1.30.0
+    prometheus-operator/prometheus-operator: v0.81.0
+    prometheus/alertmanager: v0.28.1
+    prometheus/prometheus: v3.2.1
+
+docker.io:
+  images-by-tag-regex:
+    grafana/grafana: 11.6.0
+
+registry.k8s.io:
+  images-by-tag-regex:
+    ingress-nginx/kube-webhook-certgen: v1.5.2
+    kube-state-metrics/kube-state-metrics: v2.15.0
+
