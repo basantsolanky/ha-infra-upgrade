@@ -5,6 +5,7 @@ quay.io:
     prometheus-operator/prometheus-operator: v0.63.0
     prometheus/alertmanager: v0.25.0
     prometheus/prometheus: v2.42.0
+    prometheus-operator/prometheus-config-reloader: v0.63.0
 
 docker.io:
   images-by-tag-regex:
