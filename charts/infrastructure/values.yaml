@@ -1,3 +1,9 @@
 # This is blank for now
 #
 repository: vm-cb:5000
+prometheus:
+  enabled: true
+  additionalScrapeConfigs: []
+
+applicationset:
+  enabled: false

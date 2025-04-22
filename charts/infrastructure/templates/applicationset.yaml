@@ -1,0 +1,32 @@
+{{- if .Values.applicationset.enabled -}}
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - git:
+      repoURL: http://10.140.79.107:3000/admin/argorepo
+      revision: HEAD
+      directories:
+      - path: applicationset/*
+  template:
+    metadata:
+      name: '{{ `{{.path.basename}}` }}'
+    spec:
+      project: "default"
+      source:
+        repoURL: http://10.140.79.107:3000/admin/argorepo
+        targetRevision: HEAD
+        path: '{{ `{{.path.path}}` }}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ `{{.path.basename }}` }}'
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+
+{{- end -}}
