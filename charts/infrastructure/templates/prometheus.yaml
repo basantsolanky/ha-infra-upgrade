@@ -64,6 +64,11 @@ spec:
               repository: 'prometheus'
             serviceMonitorSelectorNilUsesHelmValues: false
             podMonitorSelectorNilUsesHelmValues: false
+            {{- with .Values.prometheus.storageSpec }}
+            storageSpec:
+              {{- toYaml . | nindent 8 }}
+            {{- end }}
+
             {{- with .Values.prometheus.additionalScrapeConfigs }}
             additionalScrapeConfigs:
               {{- toYaml . | nindent 8 }}
