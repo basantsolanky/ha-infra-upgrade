@@ -4,6 +4,20 @@ repository: vm-cb:5000
 prometheus:
   enabled: true
   additionalScrapeConfigs: []
+  storageSpec: []
+    #spec:
+    #  storageClassName: kubegres-openebs-hostpath
+    #  accessModes: ["ReadWriteOnce"]
+    #  resources:
+    #    requests:
+    #      storage: 50Gi
+
+  tolerations: []
+    # - key: "key"
+    #   operator: "Equal"
+    #   value: "value"
+    #   effect: "NoSchedule"
+
 
 applicationset:
   enabled: false
