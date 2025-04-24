@@ -1,0 +1,3 @@
+# ArgoCD
+argocd.yaml is a file that gets injected into the cluster on creation. This object will have 
+different values per each cluster and will get generated most likely from a pipeline
