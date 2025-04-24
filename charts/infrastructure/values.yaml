@@ -12,6 +12,11 @@ prometheus:
     #    requests:
     #      storage: 50Gi
 
+  tolerations: []
+    # - key: "key"
+    #   operator: "Equal"
+    #   value: "value"
+    #   effect: "NoSchedule"
 
 
 applicationset:
