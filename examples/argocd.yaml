@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-import
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: git@bitbucket.org:panasonicdsc/ha-infra-upgrade.git
+    targetRevision: master
+    path: charts/infrastructure
+    helm:
+      values: |
+        imageRegistry: "vm-cb:5000"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
