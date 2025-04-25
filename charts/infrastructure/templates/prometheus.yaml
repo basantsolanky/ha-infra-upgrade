@@ -80,6 +80,11 @@ spec:
         
         prometheus:
           prometheusSpec:
+            {{- with .Values.prometheus.resources }}
+            resources:
+                {{- toYaml . | nindent 14 }}
+              {{- end }}
+
             {{- with .Values.prometheus.tolerations }}
             tolerations:
                 {{- toYaml . | nindent 14 }}

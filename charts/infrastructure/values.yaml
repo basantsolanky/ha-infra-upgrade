@@ -1,5 +1,5 @@
 # This is blank for now
-#
+
 repository: vm-cb:5000
 prometheus:
   enabled: true
@@ -17,6 +17,12 @@ prometheus:
     #   operator: "Equal"
     #   value: "value"
     #   effect: "NoSchedule"
+  resources: []
+    #limits:
+    #  cpu: 3
+    #requests:
+    #  cpu: 500m
+
 
 
 applicationset:
