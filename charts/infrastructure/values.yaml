@@ -17,11 +17,11 @@ prometheus:
     #   operator: "Equal"
     #   value: "value"
     #   effect: "NoSchedule"
-  resources: #[]
-    limits:
-      cpu: 3
-    requests:
-      cpu: 500m
+  resources: []
+    #limits:
+    #  cpu: 3
+    #requests:
+    #  cpu: 500m
 
 
 
