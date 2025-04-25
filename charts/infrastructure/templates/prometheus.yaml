@@ -50,6 +50,11 @@ spec:
             repository: node-exporter
         
         grafana:
+          {{- with .Values.grafana.ingress }}
+          ingress:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+
           {{- with .Values.prometheus.tolerations }}
           tolerations:
               {{- toYaml . | nindent 12 }}
