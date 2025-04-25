@@ -12,6 +12,10 @@ spec:
     helm:
       values: |
         imageRegistry: "vm-cb:5000"
+      grafana:
+        ingress:
+          hosts:
+            - vip-ashish3.panasonicfa.com
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
