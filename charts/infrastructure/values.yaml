@@ -2,6 +2,9 @@
 
 repository: vm-cb:5000
 
+nginx:
+  enabled: true
+
 grafana:
   ingress: 
     enabled: true
@@ -36,8 +39,8 @@ prometheus:
     #requests:
     #  cpu: 500m
 
-
-
+istio:
+  enabled: true
 
 applicationset:
   enabled: false
