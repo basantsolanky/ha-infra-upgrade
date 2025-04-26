@@ -10,6 +10,8 @@ quay.io:
 docker.io:
   images-by-tag-regex:
     grafana/grafana: 9.3.8 #Prometheus
+    istio/install-cni: 1.15.0 #Istio
+    istio/pilot: 1.15.0 #Istio
 
 registry.k8s.io:
   images-by-tag-regex:
