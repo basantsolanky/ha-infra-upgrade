@@ -50,6 +50,10 @@ spec:
             repository: node-exporter
         
         grafana:
+          grafana.ini:
+            server:
+              root_url: {{ .Values.fqdn_ingress }}/grafana
+              serve_from_sub_path: true
           {{- with .Values.grafana.ingress }}
           ingress:
               {{- toYaml . | nindent 14 }}
