@@ -3,6 +3,9 @@
 repository: vm-cb:5000
 fqdn_ingress: vip-ashish3.panasonicfa.com
 
+nginx:
+  enabled: true
+
 grafana:
   ingress: 
     enabled: true
@@ -37,8 +40,8 @@ prometheus:
     #requests:
     #  cpu: 500m
 
-
-
+istio:
+  enabled: true
 
 applicationset:
   enabled: false

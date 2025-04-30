@@ -1,3 +1,4 @@
+{{- if .Values.nginx.enabled -}}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -26,3 +27,4 @@ spec:
         global:
           image:
             registry: {{ .Values.repository}}
+{{- end -}}
