@@ -90,4 +90,16 @@ spec:
       values: |
         service:
           type: ClusterIP
+        global:
+          zipkin:
+            address: "zipkin.istio-system:9411"
+        pilot:
+           hub: vm-cb:5000
+        meshConfig:
+          extensionProviders:
+            - name: "gateway-authorizer-http"
+              envoyExtAuthzHttp:
+                service: "panasonic-user-authorization-coreapp-gateway-service.smpum.svc.cluster.local"
+                port: "8000"
+                includeRequestHeadersInCheck: ["authorization", "tenantId"]
 {{- end -}}
