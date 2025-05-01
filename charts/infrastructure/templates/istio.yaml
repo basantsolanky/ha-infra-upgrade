@@ -90,4 +90,13 @@ spec:
       values: |
         service:
           type: ClusterIP
+        pilot:
+           hub: {{ .Values.repository }}
+        meshConfig:
+          extensionProviders:
+            - name: "gateway-authorizer-http"
+              envoyExtAuthzHttp:
+                service: "panasonic-user-authorization-coreapp-gateway-service.smpum.svc.cluster.local"
+                port: "8000"
+                includeRequestHeadersInCheck: ["authorization", "tenantId"]
 {{- end -}}
