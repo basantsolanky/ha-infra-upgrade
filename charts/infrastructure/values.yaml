@@ -46,4 +46,4 @@ istio:
   enabled: true
 
 applicationset:
-  enabled: false
+  enabled: true
