@@ -41,7 +41,7 @@ spec:
     helm:
       releaseName: istio-cni
       values: |
-        cni:
+        global:
           hub: {{ .Values.repository }}
 
 ---
@@ -65,8 +65,16 @@ spec:
     helm:
       releaseName: istiod
       values: |
-        pilot:
-          hub: {{ .Values.repository }}
+        global:
+          hub: {{ .Values.repository }}/istio
+        meshConfig:
+          rootNamespace: "istio-system"
+          extensionProviders:
+            - name: "gateway-authorizer-http"
+              envoyExtAuthzHttp:
+                service: "panasonic-user-authorization-coreapp-gateway-service.smpum.svc.cluster.local"
+                port: "8000"
+                includeRequestHeadersInCheck: ["authorization", "tenantId"]
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -90,13 +98,6 @@ spec:
       values: |
         service:
           type: ClusterIP
-        pilot:
+        global:
            hub: {{ .Values.repository }}
-        meshConfig:
-          extensionProviders:
-            - name: "gateway-authorizer-http"
-              envoyExtAuthzHttp:
-                service: "panasonic-user-authorization-coreapp-gateway-service.smpum.svc.cluster.local"
-                port: "8000"
-                includeRequestHeadersInCheck: ["authorization", "tenantId"]
 {{- end -}}

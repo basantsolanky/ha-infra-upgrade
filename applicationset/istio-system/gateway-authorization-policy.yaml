@@ -1,0 +1,32 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: gateway-authorizer
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      app: istio-ingressgateway
+  action: CUSTOM
+  provider:
+    # The provider name must match the extension provider defined in the mesh config.
+    # You can also replace this with sample-ext-authz-http to test the other external authorizer definition.
+    name: gateway-authorizer-http
+  rules:
+  # The rules specify when to trigger the external authorizer.
+  - to:
+    - operation:
+        paths: ["/*"]
+        notPaths: [
+          "*/swagger/index.html",
+          "*/swagger/swagger-ui.css",
+          "*/swagger/swagger-ui-bundle.js",
+          "*/swagger/swagger-ui-standalone-preset.js",
+          "*/swagger/favicon-16x16.png",
+          "*/swagger/v1/swagger.json",
+          "*/swagger/oauth2-redirect.html",
+          "*/usermgmtauthorizationcoreapp/api/loggedUser/info",
+          "*/usermgmtauthorizationcoreapp/api/applications",
+          "*/usermgmtauthorizationcoreapp/api/permissions",
+          "*/usermgmtauthorizationcoreapp/api/users/profile",
+          "*/notificationcoreapp/api/notificationApplications"]
