@@ -90,11 +90,8 @@ spec:
       values: |
         service:
           type: ClusterIP
-        global:
-          zipkin:
-            address: "zipkin.istio-system:9411"
         pilot:
-           hub: vm-cb:5000
+           hub: {{ .Values.repository }}
         meshConfig:
           extensionProviders:
             - name: "gateway-authorizer-http"
