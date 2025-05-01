@@ -9,7 +9,7 @@ spec:
   goTemplateOptions: ["missingkey=error"]
   generators:
   - git:
-      repoURL: http://10.140.79.107:3000/admin/argorepo
+      repoURL: {{ .Values.gitRepo }}
       revision: HEAD
       directories:
       - path: applicationset/*
@@ -19,7 +19,7 @@ spec:
     spec:
       project: "default"
       source:
-        repoURL: http://10.140.79.107:3000/admin/argorepo
+        repoURL: {{ .Values.gitRepo }}
         targetRevision: HEAD
         path: '{{ `{{.path.path}}` }}'
       destination:
