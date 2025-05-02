@@ -16,9 +16,10 @@ docker.io:
 registry.k8s.io:
   images-by-tag-regex:
     ingress-nginx/kube-webhook-certgen: v20221220-controller-v1.5.1-58-g787ea74b6 #Prometheus
+    ingress-nginx/kube-webhook-certgen: v1.1.1 #nginx-ingress
     kube-state-metrics/kube-state-metrics: v2.8.2 #Prometheus
 
 
 k8s.gcr.io:
-  image-by-tag-regex:
-    ingress-nginx/controller: v1.2.0 #Ingress
+  images-by-tag-regex:
+    ingress-nginx/controller: v1.2.0

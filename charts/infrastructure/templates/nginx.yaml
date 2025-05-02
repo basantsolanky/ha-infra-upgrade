@@ -18,13 +18,18 @@ spec:
       releaseName: ingress-nginx
       values: |
         controller:
+          config:
+            proxy-buffer-size: 16k
+          service:
+            externalTrafficPolicy: Local
           image:
             digest: ""
+            registry: {{ .Values.repository }}
+            image: controller
           admissionWebhooks:
             patch:
               image:
+                registry: {{ .Values.repository }}
+                image: kube-webhook-certgen
                 digest: ""
-        global:
-          image:
-            registry: {{ .Values.repository}}
 {{- end -}}
