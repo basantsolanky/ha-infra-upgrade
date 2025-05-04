@@ -47,3 +47,6 @@ istio:
 
 applicationset:
   enabled: true
+
+argocd:
+  enabled: true
