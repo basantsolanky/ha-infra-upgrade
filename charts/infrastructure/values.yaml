@@ -8,6 +8,10 @@ gitRepo: git@bitbucket.org:panasonicdsc/ha-infra-upgrade.git
 nginx:
   enabled: true
 
+metallb:
+  addresses: []
+  enabled: true
+
 grafana:
   ingress: 
     enabled: true
