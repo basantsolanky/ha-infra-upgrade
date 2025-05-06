@@ -50,7 +50,7 @@ spec:
             repository: node-exporter
         
         grafana:
-          adminpassword: 12Panasonic34
+          adminPassword: 12Panasonic34
           grafana.ini:
             server:
               root_url: https://{{ .Values.fqdn_ingress }}/grafana
