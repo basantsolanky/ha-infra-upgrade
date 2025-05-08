@@ -6,6 +6,9 @@ quay.io:
     prometheus/alertmanager: v0.25.0 #Prometheus
     prometheus/prometheus: v2.42.0 #Prometheus
     prometheus-operator/prometheus-config-reloader: v0.63.0 #Prometheus
+    metallb/controller: v0.14.9 #metallb
+    frrouting/frr: 9.1.0 #metallb
+    metallb/speaker: v0.14.9
 
 docker.io:
   images-by-tag-regex:
@@ -16,10 +19,11 @@ docker.io:
 registry.k8s.io:
   images-by-tag-regex:
     ingress-nginx/kube-webhook-certgen: v20221220-controller-v1.5.1-58-g787ea74b6 #Prometheus
-    ingress-nginx/kube-webhook-certgen: v1.1.1 #nginx-ingress
+    #ingress-nginx/kube-webhook-certgen: v1.1.1 #nginx-ingress
     kube-state-metrics/kube-state-metrics: v2.8.2 #Prometheus
 
 
 k8s.gcr.io:
   images-by-tag-regex:
     ingress-nginx/controller: v1.2.0
+
