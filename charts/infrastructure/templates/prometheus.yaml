@@ -15,9 +15,9 @@ spec:
       - ServerSideApply=true
   project: default
   source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 45.8.1
-    chart: kube-prometheus-stack
+    repoURL: {{ .Values.git.repo }}
+    path: charts/vendor/kube-prometheus-stack
+    targetRevision: {{ .Values.git.revision }}
     helm:
       releaseName: prometheus
       values: |

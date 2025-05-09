@@ -9,7 +9,7 @@ spec:
   goTemplateOptions: ["missingkey=error"]
   generators:
   - git:
-      repoURL: {{ .Values.gitRepo }}
+      repoURL: {{ .Values.git.repo }}
       revision: HEAD
       directories:
       - path: applicationset/*
@@ -19,8 +19,8 @@ spec:
     spec:
       project: "default"
       source:
-        repoURL: {{ .Values.gitRepo }}
-        targetRevision: HEAD
+        repoURL: {{ .Values.git.repo }}
+        targetRevision: {{ .Values.git.revision }}
         path: '{{ `{{.path.path}}` }}'
       destination:
         server: https://kubernetes.default.svc

@@ -15,9 +15,9 @@ spec:
       - ServerSideApply=true
   project: default
   source:
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: 1.15.0
-    chart: base
+    repoURL: {{ .Values.git.repo }}
+    path: charts/vendor/istio/base
+    tagetRevision: {{ .Values.git.revision }}
     helm:
       releaseName: istio-base
       values: |
@@ -35,9 +35,9 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: 1.15.0
-    chart: cni
+    repoURL: {{ .Values.git.repo }}
+    path: charts/vendor/istio/cni
+    tagetRevision: {{ .Values.git.revision }}
     helm:
       releaseName: istio-cni
       values: |
@@ -59,9 +59,9 @@ spec:
       - CreateNamespace=true
   project: default
   source:
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: 1.15.0
-    chart: istiod
+    repoURL: {{ .Values.git.repo }}
+    path: charts/vendor/istio/istiod
+    tagetRevision: {{ .Values.git.revision }}
     helm:
       releaseName: istiod
       values: |
@@ -90,9 +90,9 @@ spec:
       - CreateNamespace=true
   project: default
   source:
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: 1.15.0
-    chart: gateway
+    repoURL: {{ .Values.git.repo }}
+    path: charts/vendor/istio/gateway
+    tagetRevision: {{ .Values.git.revision }}
     helm:
       releaseName: istio-ingressgateway
       values: |

@@ -11,9 +11,9 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: {{ .Values.gitRepo }}
+    repoURL: {{ .Values.git.repo }}
     path: charts/metallb-helper
-    targetRevision: metallb
+    targetRevision: {{ .Values.git.revision }}
     helm:
       releaseName: metallb-helper
       values: |
