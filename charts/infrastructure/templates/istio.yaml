@@ -17,7 +17,7 @@ spec:
   source:
     repoURL: {{ .Values.git.repo }}
     path: charts/vendor/istio/base
-    tagetRevision: {{ .Values.git.revision }}
+    targetRevision: {{ .Values.git.revision }}
     helm:
       releaseName: istio-base
       values: |
@@ -37,7 +37,7 @@ spec:
   source:
     repoURL: {{ .Values.git.repo }}
     path: charts/vendor/istio/cni
-    tagetRevision: {{ .Values.git.revision }}
+    targetRevision: {{ .Values.git.revision }}
     helm:
       releaseName: istio-cni
       values: |
@@ -61,7 +61,7 @@ spec:
   source:
     repoURL: {{ .Values.git.repo }}
     path: charts/vendor/istio/istiod
-    tagetRevision: {{ .Values.git.revision }}
+    targetRevision: {{ .Values.git.revision }}
     helm:
       releaseName: istiod
       values: |
@@ -92,7 +92,7 @@ spec:
   source:
     repoURL: {{ .Values.git.repo }}
     path: charts/vendor/istio/gateway
-    tagetRevision: {{ .Values.git.revision }}
+    targetRevision: {{ .Values.git.revision }}
     helm:
       releaseName: istio-ingressgateway
       values: |
