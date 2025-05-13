@@ -11,9 +11,9 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://metallb.github.io/metallb
-    targetRevision: 0.14.9
-    chart: metallb
+    repoURL: {{ .Values.git.repo }}
+    path: charts/vendor/metallb
+    targetRevision: {{ .Values.git.revision }}
     helm:
       releaseName: metallb
       values: |
