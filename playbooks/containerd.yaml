@@ -3,48 +3,13 @@
   become: true
   vars:
     docker_gpg_key_url: "https://download.docker.com/linux/debian/gpg"
-
+    new_runtime_endpoint: "unix:///run/containerd/containerd.sock"
   tasks:
-    - name: Update APT package cache
-      apt:
-        update_cache: yes
-        cache_valid_time: 3600 # Update if cache is older than 1 hour
-      when: vagrant is defined
-
-    - name: Install prerequisite packages for adding Docker repository
-      apt:
-        name:
-          - apt-transport-https
-          - ca-certificates
-          - curl
-          - gnupg
-          - lsb-release
-        state: present
-      when: vagrant is defined
-
-    - name: Create directory for Docker GPG key
-      file:
-        path: /etc/apt/keyrings
-        state: directory
-        mode: '0755'
-      when: vagrant is defined
-
-    - name: Add Docker's official GPG key
-      get_url:
-        url: "{{ docker_gpg_key_url }}"
-        dest: /etc/apt/keyrings/docker.asc
-        mode: '0644'
-        force: yes # Overwrite if exists, useful for key updates
-      when: vagrant is defined
-
-
-    - name: Add Docker APT repository
-      apt_repository:
-        repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu focal stable"
-        state: present
-        filename: docker # Creates /etc/apt/sources.list.d/docker.list
-        update_cache: yes
-      when: vagrant is defined
+    - name: Stop Docker.io
+      service:
+        name: docker
+        state: stopped
+      ignore_errors: true
 
     - name: Remove Docker.io
       apt:
@@ -98,7 +63,7 @@
         url: https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.33.0/crictl-v1.33.0-linux-amd64.tar.gz
         dest: /tmp/crictl.tar.gz
         mode: '0644'
-        force: yes # Overwrite if exists, useful for key updates
+        force: yes 
 
     - name: Extract crictl
       unarchive:
@@ -108,13 +73,26 @@
         mode: '0755'
         remote_src: true
 
+    - name: Change the container runtime
+      lineinfile:
+        path: "/var/lib/kubelet/kubeadm-flags.env"
+        regexp: '^(KUBELET_KUBEADM_ARGS="[^"]*--container-runtime-endpoint=)unix:///var/run/cri-dockerd\.sock([^"]*")$'
+        line: '\g<1>{{ new_runtime_endpoint }}\g<2>'
+        backrefs: yes
+        state: present
+      notify: Restart kubelet
+      register: kubelet_flags_change
+
+
+
   handlers:
     - name: Restart containerd
       systemd:
         name: containerd
         state: restarted
-        daemon_reload: yes # Important after config changes
-
-
-
-
+        daemon_reload: yes
+    - name: Restart kubelet
+      systemd:
+        name: kubelet
+        state: restarted
+        daemon_reload: yes
