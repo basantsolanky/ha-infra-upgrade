@@ -3,7 +3,6 @@
   become: true
   vars:
     docker_gpg_key_url: "https://download.docker.com/linux/debian/gpg"
-    docker_repo_arch: "amd64"
 
   tasks:
     - name: Update APT package cache
