@@ -51,6 +51,16 @@
       notify: Restart containerd
 
 
+    - name: Update sandbox_image in containerd config
+      lineinfile:
+        path: /etc/containerd/config.toml
+        regexp: '^\s*sandbox_image\s*='
+        line: '    sandbox_image = "{{ registry }}/pause:3.6"'
+        state: present
+      notify: Restart containerd
+
+
+
     - name: Insert containerd registry configuration (configs section)
       ansible.builtin.blockinfile:
         path: /etc/containerd/config.toml
@@ -130,7 +140,7 @@
       lineinfile:
         path: /etc/kubernetes/kubelet.env
         regexp: '^--container-runtime-endpoint=unix:///var/run/cri-dockerd.sock \\$'
-        line: '--container-runtime-endpoint=unix:///run/containerd/containerd.sock \\'
+        line: '--container-runtime-endpoint=unix:///run/containerd/containerd.sock \'
         state: present
         mode: '0644'
       notify: Restart kubelet
