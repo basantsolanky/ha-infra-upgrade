@@ -9,33 +9,37 @@ quay.io:
     metallb/controller: v0.14.9 #metallb
     frrouting/frr: 9.1.0 #metallb
     metallb/speaker: v0.14.9
+    argoproj/argocd: v2.14.6
 
 docker.io:
   images-by-tag-regex:
     grafana/grafana: 9.3.8 #Prometheus
     istio/install-cni: 1.15.0$ #Istio
     istio/pilot: 1.15.0$ #Istio
-
-registry.k8s.io:
-  images-by-tag-regex:
-    ingress-nginx/kube-webhook-certgen: v20221220-controller-v1.5.1-58-g787ea74b6 #Prometheus
-    #ingress-nginx/kube-webhook-certgen: v1.1.1 #nginx-ingress
-    kube-state-metrics/kube-state-metrics: v2.8.2 #Prometheus
+    redis: 7.0.15-alpine
 
 
-k8s.gcr.io:
-  images-by-tag-regex:
-    ingress-nginx/controller: v1.2.0
-    kube-apiserver: v1.24.17
-    kube-controller-manager: v1.24.17
-    kube-scheduler: v1.24.17
-    kube-proxy: v1.24.17
-    pause: 3.[0-9]+
-    etcd: 3.5.6-0
-    coredns/coredns: v1.8.6
+#registry.k8s.io:
+#  images-by-tag-regex:
+#    ingress-nginx/kube-webhook-certgen: v20221220-controller-v1.5.1-58-g787ea74b6 #Prometheus
+#    #ingress-nginx/kube-webhook-certgen: v1.1.1 #nginx-ingress
+#    kube-state-metrics/kube-state-metrics: v2.8.2 #Prometheus
+#
+#
+#k8s.gcr.io:
+#  images-by-tag-regex:
+#    ingress-nginx/controller: v1.2.0
+#    kube-apiserver: v1.24.17
+#    kube-controller-manager: v1.24.17
+#    kube-scheduler: v1.24.17
+#    kube-proxy: v1.24.17
+#    pause: 3.[0-9]+
+#    etcd: 3.5.6-0
+#    coredns/coredns: v1.8.6
 
 
 ghcr.io:
   images-by-tag-regex:
     flannel-io/flannel: v0.26.7
     flannel-io/flannel-cni-plugin: v1.6.2-flannel1
+    dexidp/dex: v2.41.1
