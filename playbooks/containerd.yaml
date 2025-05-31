@@ -4,7 +4,7 @@
   vars:
     docker_gpg_key_url: "https://download.docker.com/linux/debian/gpg"
     new_runtime_endpoint: "unix:///run/containerd/containerd.sock"
-    registry_auth_token: "aWZsb2NhbHJlZ2lzdHJ5OiZtRiZGV251"
+    registry_auth_token: "base64string"
     registry: "vm-cb:5000"
   tasks:
     - name: Stop Docker.io
