@@ -1,0 +1,10 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: test-topic
+  namespace: sm-kafka
+  labels:
+    strimzi.io/cluster: "sm-main-kafka"
+spec:
+  partitions: 30
+  replicas: 2
