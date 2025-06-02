@@ -1,0 +1,6 @@
+#namespace: kubernetes-dashboard 
+replicaCount: DASHBOARD_REPLICAS
+
+image:
+  repository: "vm-cb:5000"
+
