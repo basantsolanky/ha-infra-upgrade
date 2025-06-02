@@ -1,0 +1,48 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: sm-main-kibana
+  namespace: sm-elasticsearch
+spec:
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  version: 7.9.0
+  count: {{ .Values.count }}
+  elasticsearchRef:
+    name: sm-main-elasticsearch
+  podTemplate:
+    spec:
+      containers:
+      - image: "{{ .Values.image.repository }}/kibana:7.9.0"
+        name: kibana
+        env:
+        - name: NODE_OPTIONS
+          value: '--max-old-space-size=4096'
+        - name: "SERVER_BASEPATH"
+          value: "/kibana"
+        - name: "SERVER_PUBLICBASEURL"
+          value: "http://{{ .Values.K8S_VHOSTNAME }}/kibana"
+        - name: "SERVER_REWRITEBASEPATH"
+          value: "true"
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory }}Gi
+        readinessProbe:
+            httpGet:
+              path: /kibana/login
+              port: 5601
+              scheme: HTTP
+      nodeSelector:
+        elknode: elk
+ 
+      tolerations:
+      - key: "pod"
+        operator: "Equal"
+        value: "elk"
+        effect: "NoSchedule"
+      - key: "pod"
+        operator: "Equal"
+        value: "elk"
+        effect: "NoExecute"

@@ -1,0 +1,7 @@
+apiVersion: v2
+name: helm-elk
+description: A Helm chart for deploying elk in argocd
+type: application
+version: 0.1.0
+appVersion: "3.4.0"
+

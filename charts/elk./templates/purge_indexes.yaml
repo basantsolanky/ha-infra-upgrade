@@ -1,0 +1,52 @@
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: elasticsearch-index-purge-job
+  namespace: sm-elasticsearch
+spec:
+  schedule: 0 1 * * *
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 0
+  concurrencyPolicy: Forbid
+  suspend: false
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          restartPolicy: "OnFailure"
+          containers:
+            - name: elasticsearch-index-purge-job
+              image: "{{ .Values.image.repository }}/buildpack-deps:curl"
+              args:
+                - /bin/sh
+                - '-ec'
+                - >-
+                - curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-assets-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-workorder-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-am-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-attributes-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-datatranslation-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-if-manager-api-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-licensemanager-coreapp-api-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-productmaster-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-stationtracker-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-stationtracker-runtime-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-user-authorization-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-attributemanagement-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-documentmanagement-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-if-adapter-registry-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-workinstruction-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-user-authorization-coreapp-gateway-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-factorymodel-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-br-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-inventory-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-inventory-runtime-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-settings-supportapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                   curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-maintenance-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                    curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-datatranslation-adapter-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                    curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-workflowmanagement-runtime-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty" &
+                    curl -X DELETE "http://{userName}:{password}:@sm-main-elasticsearch-es-http.sm-elasticsearch.svc.cluster.local:9200/panasonic-workflowmanagement-coreapp-$(date -d "$date -7 days" +"%Y.%m.%d")?pretty"
