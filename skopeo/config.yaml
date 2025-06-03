@@ -14,8 +14,8 @@ quay.io:
 docker.io:
   images-by-tag-regex:
     grafana/grafana: 9.3.8 #Prometheus
-    istio/install-cni: 1.15.0$ #Istio
-    istio/pilot: 1.15.0$ #Istio
+    istio/install-cni: 1.17.0$ #Istio
+    istio/pilot: 1.17.0$ #Istio
     redis: 7.0.15-alpine
 
 
