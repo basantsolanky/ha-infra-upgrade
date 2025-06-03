@@ -1,0 +1,17 @@
+{{- if .Values.kubernetes-dashbard.enabled -}}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubernetes-dashboard
+  namespace: argocd
+spec:
+  destination:
+    namespace: kubernetes-dashboard
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: {{ .Values.git.repo }}
+    path: charts/dashboard
+    targetRevision: {{ .Values.git.revision }}
+{{- end -}}

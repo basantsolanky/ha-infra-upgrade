@@ -56,3 +56,16 @@ applicationset:
 
 argocd:
   enabled: true
+
+
+kubekafka:
+  enabled: true
+
+kubegres:
+  enabled: true
+
+elk:
+  enabled: true
+
+kubernetes-dashboard:
+  enabled: true

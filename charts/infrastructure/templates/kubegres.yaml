@@ -1,0 +1,18 @@
+{{- if .Values.kubegres.enabled -}}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubegres
+  namespace: argocd
+spec:
+  destination:
+    namespace: sm-kubegres 
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: {{ .Values.git.repo }}
+    path: charts/dashboard
+    targetRevision: {{ .Values.git.revision }}
+{{- end -}}
+

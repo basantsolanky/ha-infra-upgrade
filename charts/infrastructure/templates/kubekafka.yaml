@@ -1,0 +1,18 @@
+{{- if .Values.kubekafka.enabled -}}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubekafka
+  namespace: argocd
+spec:
+  destination:
+    #namespace: sm-kafka or kafka ( since strimzi operator is deployed in kafka and both are deployed using same helm chart)
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: {{ .Values.git.repo }}
+    path: charts/kubekafka
+    targetRevision: {{ .Values.git.revision }}
+{{- end -}}
+
