@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite: "^/kibana(/|$)(.*)$ /$1 break;"
 spec:
   rules:
-    - host: vip-ashish3.panasonicfa.com 
+    - host: {{ .Values.K8S_VHOSTNAME }} 
       http:
         paths:
           - path: /kibana(/|$)(.*)
