@@ -1,4 +1,4 @@
-{{- if .Values.kubernetes-dashbard.enabled -}}
+{{- if .Values.kubernetesDashboard.enabled -}}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
