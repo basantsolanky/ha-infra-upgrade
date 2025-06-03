@@ -1,0 +1,4 @@
+replicaCounts: 3
+image:
+  repository: "vm-cb:5000"
+

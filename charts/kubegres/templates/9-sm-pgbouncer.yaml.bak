@@ -1,0 +1,179 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sm-main-pgbouncer-service
+  namespace: sm-kubegres
+spec:
+  ports:
+  - port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: sm-main-pgbouncer
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sm-main-pgbouncer
+  name: sm-main-pgbouncer
+  namespace: sm-kubegres
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sm-main-pgbouncer
+  template:
+    metadata:
+      labels:
+        app: sm-main-pgbouncer
+    spec:
+      containers:
+      - env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_HOST_INNER
+              name: sm-main-pgbouncer-config
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: sm-main-pgbouncer-secret
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_USER
+              name: sm-main-pgbouncer-config
+        - name: POOL_MODE
+          value: transaction
+        - name: SERVER_RESET_QUERY
+          value: DISCARD ALL
+        - name: AUTH_TYPE
+          value: plain
+        image: {{ .Values.image.repository }}/edoburu/pgbouncer:v1.18.0
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - killall -INT pgbouncer && sleep 120
+        name: pgbouncer
+        ports:
+        - containerPort: 5432
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+      affinity:
+         nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+               nodeSelectorTerms:
+               - matchExpressions:
+                  - key: databasenode
+                    operator: In
+                    values:
+                    - kubegres
+      tolerations:
+       - key: "pod"
+         operator: "Equal"
+         value: "kubegres"
+         effect: "NoSchedule"
+       - key: "pod"
+         operator: "Equal"
+         value: "kubegres"
+         effect: "NoExecute"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sm-main-pgbouncer-replica-service
+  namespace: sm-kubegres
+spec:
+  ports:
+  - port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: sm-main-pgbouncer-replica
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sm-main-pgbouncer-replica
+  name: sm-main-pgbouncer-replica
+  namespace: sm-kubegres
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sm-main-pgbouncer-replica
+  template:
+    metadata:
+      labels:
+        app: sm-main-pgbouncer-replica
+    spec:
+      containers:
+      - env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_HOST_INNER
+              name: sm-main-pgbouncer-config-replica
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: sm-main-pgbouncer-secret
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_USER
+              name: sm-main-pgbouncer-config-replica
+        - name: POOL_MODE
+          value: transaction
+        - name: SERVER_RESET_QUERY
+          value: DISCARD ALL
+        - name: AUTH_TYPE
+          value: plain
+        image: {{ .Values.image.repository }}/edoburu/pgbouncer:v1.18.0
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - killall -INT pgbouncer && sleep 120
+        name: pgbouncer
+        ports:
+        - containerPort: 5432
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+
+      affinity:
+         nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+               nodeSelectorTerms:
+               - matchExpressions:
+                  - key: databasenode
+                    operator: In
+                    values:
+                    - kubegres
+      tolerations:
+       - key: "pod"
+         operator: "Equal"
+         value: "kubegres"
+         effect: "NoSchedule"
+       - key: "pod"
+         operator: "Equal"
+         value: "kubegres"
+         effect: "NoExecute"
+

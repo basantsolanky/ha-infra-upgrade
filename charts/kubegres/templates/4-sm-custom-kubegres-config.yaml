@@ -1,0 +1,22 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: sm-custom-kubegres-config
+  namespace: sm-kubegres
+data:
+  postgres.conf: |
+
+    # Replication configs
+    listen_addresses = '*'
+    max_wal_senders = 10
+    max_connections = 500
+    shared_buffers = 2048MB
+    cpu_tuple_cost = 0.03
+    effective_cache_size = 7GB
+    wal_keep_size = 4096    
+
+    # Logging
+    #log_destination = 'stderr,csvlog'
+    #logging_collector = on
+    #log_directory = 'pg_log'
+    #log_filename= 'postgresql-%Y-%m-%d_%H%M%S.log'

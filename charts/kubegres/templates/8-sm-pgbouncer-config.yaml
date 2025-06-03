@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sm-main-pgbouncer-secret
+  namespace: sm-kubegres
+type: Opaque
+data:
+  POSTGRES_PASSWORD: UGFuYXNvbmljQDEyMw==
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sm-main-pgbouncer-config
+  namespace: sm-kubegres
+data:
+  POSTGRES_HOST_INNER: "sm-main-kubegres.sm-kubegres.svc.cluster.local"
+  POSTGRES_USER: "postgres"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sm-main-pgbouncer-config-replica
+  namespace: sm-kubegres
+data:
+  POSTGRES_HOST_INNER: "sm-main-kubegres-replica.sm-kubegres.svc.cluster.local"
+  POSTGRES_USER: "postgres"

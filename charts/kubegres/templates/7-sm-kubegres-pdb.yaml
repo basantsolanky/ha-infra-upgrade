@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: kubegres-pdb
+  namespace: sm-kubegres
+spec:
+  minAvailable: 1 # We need to use 'minAvaiable' because kubegress falls into this constraint: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#arbitrary-controllers-and-selectors
+  selector:
+    matchLabels:
+      app: sm-main-kubegres

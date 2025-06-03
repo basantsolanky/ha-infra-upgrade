@@ -1,0 +1,48 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: kafka-{{ .Values.kafka.pv.nodeName }}-data
+  labels:
+    type: local
+spec:
+  storageClassName: kafka-local-storage
+  capacity:
+    storage: {{ .Values.kafka.pv.storage }}Gi
+  local:
+    path: /data/kafka
+  persistentVolumeReclaimPolicy: Retain
+  accessModes:
+    - ReadWriteOnce
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - node8
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: kafka-{{ .Values.kafka.pv.nodeName }}-data2
+  labels:
+    type: local
+spec:
+  storageClassName: kafka-local-storage
+  capacity:
+    storage: {{ .Values.kafka.pv.storage }}Gi
+  local:
+    path: /data/kafka2
+  persistentVolumeReclaimPolicy: Retain
+  accessModes:
+    - ReadWriteOnce
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - node8
+---

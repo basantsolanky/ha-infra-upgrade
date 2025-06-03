@@ -1,0 +1,56 @@
+apiVersion: kubegres.reactive-tech.io/v1
+kind: Kubegres
+metadata:
+  name: sm-main-kubegres
+  namespace: sm-kubegres
+spec:
+   replicas: 3
+   image: postgres:14.1
+   database:
+      size: 40Gi
+      storageClassName: kubegres-openebs-hostpath
+   # Uncoment the following lines IF you want to ENABLE automatic backups
+   # backup:
+   #    schedule: "0 0 * * *" # Every day at 0:00 AM
+   #    pvcName: sm-main-kubegres-backup-pvc
+   #    volumeMount: /var/lib/backup
+   resources:
+      limits:
+         memory: "8Gi"
+         cpu: "800m"
+      requests:
+         memory: "2Gi"
+         cpu: "500m"      
+   failover:
+      isDisabled: false
+   customConfig: sm-custom-kubegres-config
+   env:
+      - name: POSTGRES_PASSWORD
+        valueFrom:
+           secretKeyRef:
+              name: sm-main-postgres-secret
+              key: superUserPassword
+      - name: POSTGRES_REPLICATION_PASSWORD
+        valueFrom:
+           secretKeyRef:
+              name: sm-main-postgres-secret
+              key: replicationUserPassword        
+   scheduler:
+      affinity:
+         nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+               nodeSelectorTerms:
+               - matchExpressions:
+                  - key: databasenode
+                    operator: In
+                    values:
+                    - kubegres
+      tolerations:
+       - key: "pod"
+         operator: "Equal"
+         value: "kubegres"
+         effect: "NoExecute"
+       - key: "pod"
+         operator: "Equal"
+         value: "kubegres"
+         effect: "NoSchedule"               
