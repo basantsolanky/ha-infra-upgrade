@@ -12,6 +12,6 @@ spec:
   project: default
   source:
     repoURL: {{ .Values.git.repo }}
-    path: charts/dashboard
+    path: charts/dashboard #pwd
     targetRevision: {{ .Values.git.revision }}
 {{- end -}}
