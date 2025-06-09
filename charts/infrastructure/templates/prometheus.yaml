@@ -68,10 +68,12 @@ spec:
           testFramework:
             enabled: false
           image:
-            repository: {{ .Values.repository}}/grafana
+            repository: grafana
+            registry: {{ .Values.repository }}
           sidecar:
             image:
-              repository: {{ .Values.repository}}/k8s-sidecar
+              repository: k8s-sidecar
+              registry: {{ .Values.repository }}
         
         prometheusOperator:
           {{- with .Values.prometheus.tolerations }}
