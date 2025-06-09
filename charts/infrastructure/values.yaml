@@ -68,4 +68,4 @@ elk:
   enabled: true
 
 kubernetesDashboard:
-  enabled: false
+  enabled: true
