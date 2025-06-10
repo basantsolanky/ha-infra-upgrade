@@ -1,0 +1,90 @@
+---
+- hosts: all
+  become: true
+  vars:
+    kubernetes_version: "1.26.15-1.1"
+    registry: "vm-cb:5000" # Docker Registry
+  tasks:
+    - name: Cordon the node using kubectl
+      become: false
+      command: >
+        kubectl cordon {{ ansible_hostname }}
+      delegate_to: localhost
+      run_once: true
+
+    - name: Remove execute permission from kubectl, kubeadm, and kubelet
+      ansible.builtin.file:
+        path: "{{ item }}"
+        mode: '0644'
+      ignore_errors: true
+      loop:
+        - /usr/local/bin/kubectl
+        - /usr/local/bin/kubeadm
+        - /usr/local/bin/kubelet
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Unhold kubeadm
+      command: "apt-mark unhold kubeadm"
+      register: unhold_result
+      changed_when: "'was already not held' not in unhold_result.stdout"
+
+    - name: Upgrade kubeadm
+      apt:
+        name: "kubeadm={{ kubernetes_version }}"
+        state: present
+        allow_downgrade: yes
+
+    - name: Hold kubeadm
+      command: "apt-mark hold kubeadm"
+      register: kubeadmhold_result
+      changed_when: "'was already not held' not in kubeadmhold_result.stdout"
+
+
+    - name: Upgrade the node
+      command: "kubeadm upgrade node"
+      register: kubeadm_upgrade
+
+    - name: Show 'kubeadm upgrade node' output
+      debug:
+        msg: "{{ kubeadm_upgrade.stdout_lines }}"
+
+
+    - name: Unhold packages
+      command: "apt-mark unhold {{ item }}"
+      loop:
+        - kubeadm
+        - kubectl
+        - kubelet
+      register: finalunhold_result
+
+    - name: Upgrade all components
+      apt:
+        name: "{{item}}={{ kubernetes_version }}"
+        state: present
+        allow_downgrade: yes
+      loop:
+        - kubectl
+        - kubelet
+
+    - name: restart kubelet
+      service:
+        name: "kubelet"
+        state: restarted
+
+    - name: Uncordon the node using kubectl
+      become: false
+      command: >
+        kubectl uncordon {{ ansible_hostname }}
+      delegate_to: localhost
+      run_once: true
+
+  handlers:
+    - name: Restart kubelet
+      systemd:
+        name: kubelet
+        state: restarted
+        daemon_reload: yes
