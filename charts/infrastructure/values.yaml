@@ -11,7 +11,7 @@ nginx:
   enabled: true
 
 metallb:
-  addresses: []https://github.com/basantsolanky/ha-infra-upgrade.git
+  addresses: []
   enabled: true
 
 grafana:
