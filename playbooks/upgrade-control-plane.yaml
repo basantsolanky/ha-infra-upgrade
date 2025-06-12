@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   vars:
-    kubernetes_version: "1.26.15-1.1"
+    kubernetes_version: "1.29.15-1.1"
     registry: "vm-cb:5000" # Docker Registry
   tasks:
     - name: Cordon the node using kubectl
@@ -41,6 +41,14 @@
       command: "apt-mark hold kubeadm"
       register: kubeadmhold_result
       changed_when: "'was already not held' not in kubeadmhold_result.stdout"
+
+
+    - name: Update KubeSchedulerConfiguration deprecation
+      lineinfile:
+        path: /etc/kubernetes/kubescheduler-config.yaml
+        regexp: '^apiVersion:.*'
+        line: 'apiVersion: kubescheduler.config.k8s.io/v1'
+        backup: yes 
 
     - name: Download the images before hand from the repository
       command: "kubeadm config images pull --image-repository={{ registry }}"
