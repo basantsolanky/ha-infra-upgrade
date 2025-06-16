@@ -14,8 +14,8 @@ quay.io:
 docker.io:
   images-by-tag-regex:
     grafana/grafana: 12.0.0-security-01 #Prometheus
-    istio/install-cni: 1.17.0$ #Istio
-    istio/pilot: 1.17.0$ #Istio
+    istio/install-cni: 1.19.1$ #Istio
+    istio/pilot: 1.19.1$ #Istio
     redis: 7.0.15-alpine
     bats/bats: v1.4.1 #Prometheus
 
@@ -23,13 +23,13 @@ docker.io:
 registry.k8s.io:
   images-by-tag-regex:
     ingress-nginx/kube-webhook-certgen: v20221220-controller-v1.5.1-58-g787ea74b6 #Prometheus
-    kube-apiserver: v1.27.16
-    kube-controller-manager: v1.27.16
-    kube-scheduler: v1.27.16
-    kube-proxy: v1.27.16
+    kube-apiserver: v1.30.13
+    kube-controller-manager: v1.30.13
+    kube-scheduler: v1.30.13
+    kube-proxy: v1.30.13
     pause: 3.[5-9]+
-    etcd: 3.5.12-0
-    coredns/coredns: v1.10.1
+    etcd: 3.5.15-0
+    coredns/coredns: v1.11.3
     kube-state-metrics/kube-state-metrics: v2.15.0 #Prometheus
   images-by-semver:
     ingress-nginx/kube-webhook-certgen: #nginx-ingress
