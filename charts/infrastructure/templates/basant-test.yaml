@@ -10,8 +10,8 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    # repoURL: {{ .Values.git.repo }}
-    repoURL: {{ .Values.basant }} 
+    repoURL: {{ .Values.git.repo }}
+    # repoURL: {{ .Values.basant }} 
     path: charts/vendor/ingress-nginx
     targetRevision: {{ .Values.git.revision }}
     
