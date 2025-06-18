@@ -15,7 +15,7 @@ spec:
   podTemplate:
     spec:
       containers:
-      - image: "{{ .Values.image.repository }}/kibana:7.9.0"
+      - image: "{{ .Values.image.imageRegistry }}/kibana:7.9.0"
         name: kibana
         env:
         - name: NODE_OPTIONS

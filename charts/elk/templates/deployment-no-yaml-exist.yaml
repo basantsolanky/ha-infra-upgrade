@@ -44,7 +44,7 @@ spec:
           value: http://vip-ashish3.panasonicfa.com/kibana
         - name: SERVER_REWRITEBASEPATH
           value: "true"
-        image: "{{ .Values.image.repository }}/kibana:7.9.0"
+        image: "{{ .Values.image.imageRegistry }}/kibana:7.9.0"
         imagePullPolicy: IfNotPresent
         name: kibana
         ports:
@@ -111,7 +111,7 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.namespace
-        image: "{{ .Values.image.repository }}/kibana:7.9.0"
+        image: "{{ .Values.image.imageRegistry }}/kibana:7.9.0"
         imagePullPolicy: IfNotPresent
         name: elastic-internal-init-config
         resources:

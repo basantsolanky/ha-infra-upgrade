@@ -2,5 +2,5 @@
 replicaCount: DASHBOARD_REPLICAS
 
 image:
-  repository: "vm-cb:5000"
+  imageRegistry: "vm-cb:5000"
 

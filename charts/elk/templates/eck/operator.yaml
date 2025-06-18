@@ -409,7 +409,7 @@ spec:
       securityContext:
         runAsNonRoot: true
       containers:
-      - image: "{{ .Values.image.repository }}/elastic/eck-operator:2.5.0"
+      - image: "{{ .Values.image.imageRegistry }}/elastic/eck-operator:2.5.0"
         imagePullPolicy: IfNotPresent
         name: manager
         args:

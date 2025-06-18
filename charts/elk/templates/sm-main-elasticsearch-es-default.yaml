@@ -82,7 +82,7 @@ spec:
           value: sm-main-elasticsearch-es-default
         - name: NSS_SDB_USE_CACHE
           value: "no"
-        image: "{{ .Values.image.repository }}/elasticsearch:7.9.0"
+        image: "{{ .Values.image.imageRegistry }}/elasticsearch:7.9.0"
         imagePullPolicy: IfNotPresent
         lifecycle:
           preStop:
@@ -193,7 +193,7 @@ spec:
           value: sm-main-elasticsearch-es-default
         - name: NSS_SDB_USE_CACHE
           value: "no"
-        image: "{{ .Values.image.repository }}/elasticsearch:7.9.0"
+        image: "{{ .Values.image.imageRegistry }}/elasticsearch:7.9.0"
         imagePullPolicy: IfNotPresent
         name: elastic-internal-init-filesystem
         resources:
@@ -282,7 +282,7 @@ spec:
           value: sm-main-elasticsearch-es-default
         - name: NSS_SDB_USE_CACHE
           value: "no"
-        image: "{{ .Values.image.repository }}/elasticsearch:7.9.0"
+        image: "{{ .Values.image.imageRegistry }}/elasticsearch:7.9.0"
         imagePullPolicy: IfNotPresent
         name: elastic-internal-suspend
         resources:

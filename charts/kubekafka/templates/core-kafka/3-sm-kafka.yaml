@@ -7,7 +7,7 @@ spec:
   kafka:
     version: 2.8.0
     replicas: {{ .Values.kafka.replicas }}
-    image: {{ .Values.kafka.image }} /quay.io/strimzi/kafka:0.24.0-kafka-2.8.0
+    image: {{ .Values.kafka.image.imageRegistry }} /quay.io/strimzi/kafka:0.24.0-kafka-2.8.0
     listeners:
       - name: plain
         port: 9092
@@ -69,7 +69,7 @@ spec:
                       values:
                       - kafka
   zookeeper:
-    image: {{ .Values.kafka.image }} /quay.io/strimzi/kafka:0.24.0-kafka-2.8.0
+    image: {{ .Values.kafka.image.imageRegistry }} /quay.io/strimzi/kafka:0.24.0-kafka-2.8.0
     replicas: {{ .Values.kafka.replicas }}
     storage:
       type: persistent-claim

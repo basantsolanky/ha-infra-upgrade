@@ -20,7 +20,7 @@ spec:
           restartPolicy: "OnFailure"
           containers:
             - name: elasticsearch-index-purge-job
-              image: "{{ .Values.image.repository }}/buildpack-deps:curl"
+              image: "{{ .Values.image.imageRegistry }}/buildpack-deps:curl"
               args:
                 - /bin/sh
                 - '-ec'

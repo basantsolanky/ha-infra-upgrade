@@ -1,4 +1,4 @@
 replicaCounts: 3
 image:
-  repository: "vm-cb:5000"
+  imageRegistry: "vm-cb:5000"
 
