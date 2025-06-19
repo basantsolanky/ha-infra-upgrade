@@ -1,7 +1,4 @@
-strimzi:
-  image: "vm-cb:5000"
-kafka:
-  image: "vm-cb:5000"
+kafka: 
   pv:
     nodeName: node5
     storage: 21 #Gi

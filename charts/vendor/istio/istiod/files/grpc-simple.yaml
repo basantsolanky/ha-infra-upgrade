@@ -1,6 +1,5 @@
 metadata:
-  annotations:
-    sidecar.istio.io/rewriteAppHTTPProbers: "false"
+  sidecar.istio.io/rewriteAppHTTPProbers: "false"
 spec:
   initContainers:
     - name: grpc-bootstrap-init

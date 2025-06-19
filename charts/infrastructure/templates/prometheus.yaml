@@ -53,8 +53,7 @@ spec:
           adminPassword: 12Panasonic34
           grafana.ini:
             server:
-              root_url: 'http://%(domain)s/grafana'
-              enforce_domain: false
+              root_url: https://{{ .Values.fqdn_ingress }}/grafana
               serve_from_sub_path: true
           {{- with .Values.grafana.ingress }}
           ingress:
@@ -69,12 +68,10 @@ spec:
           testFramework:
             enabled: false
           image:
-            repository: grafana
-            registry: {{ .Values.repository }}
+            repository: {{ .Values.repository}}/grafana
           sidecar:
             image:
-              repository: k8s-sidecar
-              registry: {{ .Values.repository }}
+              repository: {{ .Values.repository}}/k8s-sidecar
         
         prometheusOperator:
           {{- with .Values.prometheus.tolerations }}

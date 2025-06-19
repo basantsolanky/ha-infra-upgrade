@@ -75,7 +75,7 @@
       }
     },
     "replicaCount": {
-      "type": [ "integer", "null" ]
+      "type": "integer"
     },
     "resources": {
       "type": "object",
@@ -128,16 +128,6 @@
         },
         "loadBalancerSourceRanges": {
           "type": "array"
-        },
-        "ipFamilies" : {
-          "items": {
-            "type": "string",
-            "enum": ["IPv4", "IPv6"]
-        }
-        },
-        "ipFamilyPolicy" : {
-          "type": "string",
-          "enum": ["", "SingleStack", "PreferDualStack", "RequireDualStack"]
         },
         "ports": {
           "type": "array",
@@ -195,10 +185,6 @@
     "networkGateway": {
       "type": "string"
     },
-    "imagePullPolicy": {
-      "type": "string",
-      "enum": ["", "Always", "IfNotPresent", "Never"]
-    },
     "imagePullSecrets": {
       "type": "array",
       "items": {
@@ -209,24 +195,6 @@
           }
         }
       }
-    },
-    "podDisruptionBudget": {
-      "type": "object",
-      "properties": {
-        "minAvailable": {
-          "type": ["integer", "string"]
-        },
-        "maxUnavailable": {
-          "type": ["integer", "string"]
-        },
-        "unhealthyPodEvictionPolicy": {
-          "type": "string",
-          "enum": ["", "IfHealthyBudget", "AlwaysAllow"]
-        }
-      }
-    },
-    "terminationGracePeriodSeconds": {
-      "type": "number"
     }
   }
 }

@@ -1,0 +1,49 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: sm-main-elasticsearch
+  namespace: sm-elasticsearch
+spec:
+  version: 7.9.0
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  nodeSets:
+  - name: default
+    count: {{ .Values.count }} 
+    podTemplate:
+      spec:
+        containers:
+        - image: "{{ .Values.imageRegistry }}/elasticsearch:7.9.0"
+          name: elasticsearch
+          env:
+            - name: ES_JAVA_OPTS
+              value: '-Xms10g -Xmx10g'
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}Gi
+              cpu: {{ .Values.resources.requests.cpu }}
+        nodeSelector:
+          elknode: elk
+        tolerations:
+        - key: "pod"
+          operator: "Equal"
+          value: "elk"
+          effect: "NoSchedule"
+        - key: "pod"
+          operator: "Equal"
+          value: "elk"
+          effect: "NoExecute"
+    config:
+      node.store.allow_mmap: false
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data # Do not change this name unless you set up a volume mount for the data path.
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.pv.storage }}Gi
+        storageClassName: local-storage-elk

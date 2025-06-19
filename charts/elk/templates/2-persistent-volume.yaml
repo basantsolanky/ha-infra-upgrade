@@ -1,0 +1,23 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: elk-{{ .Values.pv.nodeName1 }}-data
+  labels:
+    type: local
+spec:
+  storageClassName: local-storage-elk
+  capacity:
+    storage: {{ .Values.pv.storage }}Gi
+  local:
+    path: /data/elk
+  persistentVolumeReclaimPolicy: Retain
+  accessModes:
+    - ReadWriteOnce
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - {{ .Values.pv.nodeName1 }}

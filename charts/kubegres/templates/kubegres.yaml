@@ -2428,7 +2428,7 @@ spec:
         - --upstream=http://127.0.0.1:8080/
         - --logtostderr=true
         - --v=0
-        image: {{ .Values.image.repository }}/gcr.io/kubebuilder/kube-rbac-proxy:v0.13.0
+        image: {{ .Values.imageRegistry }}/gcr.io/kubebuilder/kube-rbac-proxy:v0.13.0
         name: kube-rbac-proxy
         ports:
         - containerPort: 8443
@@ -2452,7 +2452,7 @@ spec:
         - --leader-elect
         command:
         - /manager
-        image: {{ .Values.image.repository }}/reactivetechio/kubegres:1.16
+        image: {{ .Values.imageRegistry }}/reactivetechio/kubegres:1.16
         livenessProbe:
           httpGet:
             path: /healthz

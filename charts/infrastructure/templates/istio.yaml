@@ -65,8 +65,6 @@ spec:
     helm:
       releaseName: istiod
       values: |
-        pilot:	
-          image: {{ .Values.repository}}/pilot:1.19.1
         global:
           hub: {{ .Values.repository }}/istio
         meshConfig:
