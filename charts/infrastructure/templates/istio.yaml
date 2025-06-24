@@ -65,8 +65,13 @@ spec:
     helm:
       releaseName: istiod
       values: |
-        global:
-          hub: {{ .Values.repository }}/istio
+        pilot:	
+          repository: pilot
+          hub: ""
+        global:	
+          hub: {{ .Values.repository }}
+
+
         meshConfig:
           rootNamespace: "istio-system"
           extensionProviders:

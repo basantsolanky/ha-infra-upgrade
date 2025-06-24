@@ -17,7 +17,7 @@ spec:
         argocd:
           enabled: false
         git:
-          revision:  master
+          revision:  1.32.5
         imageRegistry: "vm-cb:5000"
         grafana:
           ingress:
@@ -25,4 +25,4 @@ spec:
               - vip-ashish3.panasonicfa.com
     path: charts/infrastructure
     repoURL: git@bitbucket.org:panasonicdsc/ha-infra-upgrade.git
-    targetRevision: master
+    targetRevision: 1.32.5
