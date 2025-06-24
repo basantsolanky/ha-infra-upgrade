@@ -1,6 +1,4 @@
 #namespace: kubernetes-dashboard 
 replicaCount: DASHBOARD_REPLICAS
-
-image:
-  imageRegistry: "vm-cb:5000"
+imageRegistry: "vm-cb:5000"
 

@@ -1,7 +1,6 @@
 replicaCount: DASHBOARD_REPLICAS
 K8S_VHOSTNAME: vip-ashish3.panasonicfa.com
-image:
-  imageRegistry: "vm-cb:5000"
+imageRegistry: "vm-cb:5000"
 pv:
   nodeName1: node9
   storage: 10

@@ -1,3 +1,4 @@
+imageRegistry: "vm-cb:5000
 kafka: 
   pv:
     nodeName: node5

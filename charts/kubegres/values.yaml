@@ -1,4 +1,3 @@
 replicaCounts: 3
-image:
-  imageRegistry: "vm-cb:5000"
+imageRegistry: "vm-cb:5000"
 
