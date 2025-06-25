@@ -1,0 +1,17 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: basant-ingress-nginx
+  namespace: argocd
+spec:
+  destination:
+    namespace: ingress-nginx
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    # repoURL: {{ .Values.git.repo }}
+    repoURL: {{ .Values.basant }} 
+    path: charts/vendor/ingress-nginx
+    targetRevision: {{ .Values.git.revision }}
+    

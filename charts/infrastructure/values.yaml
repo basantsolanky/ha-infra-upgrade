@@ -4,7 +4,7 @@ repository: vm-cb:5000
 fqdn_ingress: vip-ashish3.panasonicfa.com
 # The git_repo is used for the applicationset
 git:
-  repo: git@bitbucket.org:panasonicdsc/ha-infra-upgrade.git
+  repo: https://github.com/basantsolanky/ha-infra-upgrade.git 
   revision: master
 
 nginx:
